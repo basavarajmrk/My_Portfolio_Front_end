@@ -2,6 +2,15 @@ import React, { useEffect, useState } from "react";
 import { getHome } from "../services/api";
 import LinearProgress from "@mui/material/LinearProgress";
 import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from "recharts";
+import {
   Box,
   Button,
   Container,
@@ -10,7 +19,6 @@ import {
   Menu,
   MenuItem,
   Select,
-  Tooltip,
   Typography,
 } from "@mui/material";
 // React: Needed to write React components
@@ -42,7 +50,10 @@ const Home = () => {
 
   return (
     <section id="home">
-      <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", height: "100vh" }}>
+      <Box
+        sx={{ backgroundColor: "#e4f2f7", width: "100%", minHeight: "100vh" }}
+      >
+        {/* Header */}
         <Container maxWidth="md" sx={{ pt: 8, textAlign: "center" }}>
           <Typography variant="h4" component="h1" gutterBottom>
             {data?.username?.split(" ").map((word, index) => (
@@ -54,10 +65,11 @@ const Home = () => {
           </Typography>
         </Container>
 
+        {/* Description and Resume */}
         <Container
           maxWidth="sm"
           sx={{
-            minHeight: "calc(100vh - 300px)", // subtract space for top text
+            minHeight: "calc(100vh - 300px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -68,7 +80,6 @@ const Home = () => {
             flexDirection="column"
             backgroundColor="#b9ccd6"
             boxShadow={3}
-            //   borderRadius={2}
             alignItems="center"
             justifyContent="center"
             minHeight="30vh"
@@ -87,77 +98,84 @@ const Home = () => {
             )}
           </Box>
         </Container>
-        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 4 }}>
-          <Container
-            maxWidth="md"
-            sx={{
-              pt: 8,
-              textAlign: "center",
-              backgroundColor: "#d0e5ef",
-              borderRadius: 2,
-              pb: 8,
-            }}
-          >
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
-              01 PROFESSIONAL
-            </Typography>
-            <Typography variant="subtitle1" gutterBottom>
-              MY KNOWLEDGE LEVEL IN SOFTWARE
-            </Typography>
 
-            <Grid container spacing={4}>
+        {/* Skills Card */}
+        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "800px" }}>
+            <Box
+              sx={{
+                // backgroundColor: "rgba(255, 255, 255, 0.09)", // semi-transparent white
+                // backdropFilter: "blur(100px)", // glass blur
+                // WebkitBackdropFilter: "blur(10px)", // Safari support
+                borderRadius: 3,
+                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                // border: "1px solid rgba(255, 255, 255, 0.18)",
+                p: 3,
+              }}
+            >
+              <Typography
+                variant="h4"
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+              >
+                01 PROFESSIONAL
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom align="center">
+                MY KNOWLEDGE LEVEL IN SOFTWARE
+              </Typography>
+
               {data?.skills?.map((skill, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
-                  <Box
-                    sx={{
-                      p: 3,
-                      backgroundColor: "#ffffff",
-                      borderRadius: 3,
-                      boxShadow: 3,
-                      height: "100%",
-                    }}
+                <Box key={index} sx={{ mb: 2 }}>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: "#1565c0", fontWeight: "bold", mb: 1 }}
                   >
-                    <Typography
-                      variant="h6"
-                      sx={{ color: "#1565c0", mb: 2, fontWeight: "bold" }}
-                    >
-                      {skill.skill_name}
-                    </Typography>
+                    {skill.skill_name}
+                  </Typography>
 
-                    {skill.subskills?.map((sub, subIndex) => (
-                      <Box key={subIndex} sx={{ mb: 2 }}>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            mb: 0.5,
-                          }}
+                  {skill.subskills?.map((sub, subIndex) => {
+                    const chartData = [
+                      {
+                        name: sub.subskill_name,
+                        value: Math.min(sub.skill_percentage, 100),
+                      },
+                    ];
+                    return (
+                      <Box key={subIndex} sx={{ mb: 1 }}>
+                        <Typography
+                          variant="body1"
+                          sx={{ mb: 1, fontWeight: 500, color: "#333" }}
                         >
-                          <Typography variant="body1">
-                            {sub.subskill_name}
-                          </Typography>
-                          <Typography variant="body2" fontWeight="bold">
-                            {Math.min(sub.skill_percentage, 100)}%
-                          </Typography>
-                        </Box>
-                        <LinearProgress
-                          variant="determinate"
-                          value={Math.min(sub.skill_percentage, 100)}
-                          sx={{
-                            height: 10,
-                            borderRadius: 5,
-                            backgroundColor: "#e0e0e0",
-                            "& .MuiLinearProgress-bar": {
-                              backgroundColor: "#1976d2",
-                            },
-                          }}
-                        />
+                          {sub.subskill_name}
+                        </Typography>
+                        <ResponsiveContainer width="100%" height={30}>
+                          <BarChart
+                            data={chartData}
+                            layout="vertical"
+                            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                          >
+                            <XAxis type="number" domain={[0, 100]} hide />
+                            <YAxis type="category" dataKey="name" hide />
+                            <Tooltip
+                              formatter={(value) => [`${value}%`, "Skill"]}
+                              cursor={{ fill: "rgba(25, 118, 210, 0.1)" }}
+                            />
+                            <Bar
+                              dataKey="value"
+                              barSize={10}
+                              radius={[5, 5, 5, 5]}
+                            >
+                              <Cell fill="#1976d2" />
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
                       </Box>
-                    ))}
-                  </Box>
-                </Grid>
+                    );
+                  })}
+                </Box>
               ))}
-            </Grid>
+            </Box>
           </Container>
         </Box>
       </Box>

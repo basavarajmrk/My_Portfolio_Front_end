@@ -21,14 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-.eslintcache
-.vscode
-.eslintcache~5e5dd45bd0eb054a43943e2eccb1d948c0d13032
-.eslintcache~Stashed changes
-
-.codegpt
-.early.coverage
-
-# git add .gitignore
-# git commit -m "Updated .gitignore for React project"

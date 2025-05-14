@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getHome } from "../services/api";
+import { getHome, getProjects, getExperience } from "../services/api";
 import LinearProgress from "@mui/material/LinearProgress";
 import {
   BarChart,
@@ -20,7 +20,9 @@ import {
   MenuItem,
   Select,
   Typography,
+  Divider,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 // React: Needed to write React components
 // useState: manages the state (semiler to variable chenges)
 // useEffect: run code when the component loads
@@ -28,6 +30,9 @@ import {
 // this is the function component that will be used to display the home page
 const Home = () => {
   const [data, setData] = useState([]);
+  const [project, setproject] = useState([]);
+  const [experiences, setExperiences] = useState([]);
+  const navigate = useNavigate();
   // data this will store the api responce(like title, decitpion)
   // setData is used to update data
   // useState({}) // this is the initial state of data, it is an empty object
@@ -38,6 +43,22 @@ const Home = () => {
       setData(res[0]);
     });
   }, []);
+
+  useEffect(() => {
+    getProjects().then((res) => {
+      setproject(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    getExperience().then((res) => {
+      setExperiences(res);
+    });
+  }, []);
+  console.log(experiences.start_date, "experiences");
+  const handleImageClick = (id) => {
+    navigate(`/projects/${id}`);
+  };
 
   // useeffect runs when the component  mounts(loads)
   // getHome() call the api (api/home)
@@ -107,8 +128,8 @@ const Home = () => {
                 // backgroundColor: "rgba(255, 255, 255, 0.09)", // semi-transparent white
                 // backdropFilter: "blur(100px)", // glass blur
                 // WebkitBackdropFilter: "blur(10px)", // Safari support
-                borderRadius: 3,
-                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                // borderRadius: 3,
+                // boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
                 // border: "1px solid rgba(255, 255, 255, 0.18)",
                 p: 3,
               }}
@@ -177,7 +198,225 @@ const Home = () => {
               ))}
             </Box>
           </Container>
-        </Box>
+          </Box>
+          <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
+            <Box
+              sx={{
+                // borderRadius: 3,
+                // boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                p: 3,
+              }}
+            >
+              <Typography
+                variant="h4"
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+              >
+                02 PORTFOLIO
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom align="center">
+                MY LATEST WORK.
+              </Typography>
+              <Box
+                display="flex"
+                flexWrap="wrap"
+                gap={20}
+                justifyContent="center"
+                mb={4}
+                mt={4}
+              >
+                {project?.map((pro, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: "120px",
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={pro.image}
+                      alt={pro.title}
+                      onClick={() => handleImageClick(pro.id)}
+                      sx={{
+                        width: "250px", // Fixed width
+                        height: "200px", // Fixed height
+                        objectFit: "cover", // Ensures the image fills the box
+                        borderRadius: 2,
+                        cursor: "pointer",
+                        ":hover": {
+                          transform: "scale(1.05)",
+                          transition: "transform 0.2s",
+                          shadow: 3,
+                        },
+                        mb: 2,
+                        boxShadow: 3,
+                      }}
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "#1565c0",
+                        fontWeight: "bold",
+                        mb: 1,
+                        whiteSpace: "nowrap", // Ensures single line
+                        fontSize: "0.95rem", // Make text smaller (adjust as needed)
+                        maxWidth: "200px", // Optional: limits max width to prevent overflow
+                      }}
+                    >
+                      {pro.title}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </Container>
+          </Box>
+
+          <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              mt: 4,
+            }}
+          >
+            <Typography
+              variant="h4"
+              mt={4}
+              mb={2}
+              fontWeight="bold"
+              gutterBottom
+              align="center"
+            >
+              03 EXPERIENCE
+            </Typography>
+            {experiences.map((exp, index) => (
+              <Box key={index} sx={{ position: "relative", mb: 4 }}>
+                {/* Content Box */}
+                <Box
+                  sx={{
+                    position: "relative",
+                    border: "1px solid #ccc",
+                    borderRadius: 2,
+                    mt: 1,
+                    padding: 3,
+                    backgroundColor: "#f9f9f9",
+                    width: "700px",
+                    mx: "auto",
+                  }}
+                >
+                  {/* Corner L-shapes */}
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: 20,
+                      height: 20,
+                      borderTop: "2px solid #000",
+                      borderLeft: "2px solid #000",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      width: 20,
+                      height: 20,
+                      borderTop: "2px solid #000",
+                      borderRight: "2px solid #000",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      width: 20,
+                      height: 20,
+                      borderBottom: "2px solid #000",
+                      borderLeft: "2px solid #000",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      right: 0,
+                      width: 20,
+                      height: 20,
+                      borderBottom: "2px solid #000",
+                      borderRight: "2px solid #000",
+                    }}
+                  />
+
+                  {/* Top Center Date */}
+                  <Typography
+                    variant="subtitle2"
+                    sx={{
+                      position: "absolute",
+                      top: -12,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      backgroundColor: "#f9f9f9",
+                      px: 1,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {exp?.start_date
+                      ? new Date(
+                          exp.start_date.replace(/-/g, "/")
+                        ).toLocaleDateString()
+                      : "Start date"}{" "}
+                    -{" "}
+                    {exp?.end_date
+                      ? new Date(
+                          exp.end_date.replace(/-/g, "/")
+                        ).toLocaleDateString()
+                      : "Present"}
+                  </Typography>
+
+                  {/* Experience Details */}
+                  <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
+                    {exp.company_name}
+                  </Typography>
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                    {exp.designation}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ whiteSpace: "pre-line", textAlign: "justify" }}
+                  >
+                    {exp.description}
+                  </Typography>
+                </Box>
+
+                {/* Vertical Line */}
+                {index !== experiences.length - 1 && (
+                  <Box
+                    sx={{
+                      width: "2px",
+                      height: "40px",
+                      backgroundColor: "#000",
+                      mx: "auto",
+                      mt: 1,
+                    }}
+                  />
+                )}
+              </Box>
+            ))}
+          </Box>
+          </Container>
+          </Box>
+        {/* </Box> */}
       </Box>
     </section>
   );

@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getHome, getProjects, getExperience } from "../services/api";
+import {
+  getHome,
+  getProjects,
+  getExperience,
+  getContact,
+} from "../services/api";
 import LinearProgress from "@mui/material/LinearProgress";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import PublicIcon from "@mui/icons-material/Public";
 import {
   BarChart,
   Bar,
@@ -14,7 +22,10 @@ import {
   Box,
   Button,
   Container,
+  Avatar,
   Grid,
+  Link,
+  Stack,
   IconButton,
   Menu,
   MenuItem,
@@ -32,6 +43,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [project, setproject] = useState([]);
   const [experiences, setExperiences] = useState([]);
+  const [contact, setContact] = useState([]);
   const navigate = useNavigate();
   // data this will store the api responce(like title, decitpion)
   // setData is used to update data
@@ -55,7 +67,12 @@ const Home = () => {
       setExperiences(res);
     });
   }, []);
-  console.log(experiences.start_date, "experiences");
+
+  useEffect(() => {
+    getContact().then((res) => {
+      setContact(res[0]);
+    });
+  }, []);
   const handleImageClick = (id) => {
     navigate(`/projects/${id}`);
   };
@@ -198,8 +215,8 @@ const Home = () => {
               ))}
             </Box>
           </Container>
-          </Box>
-          <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        </Box>
+        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
             <Box
               sx={{
@@ -275,147 +292,230 @@ const Home = () => {
               </Box>
             </Box>
           </Container>
-          </Box>
+        </Box>
 
-          <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              mt: 4,
-            }}
-          >
-            <Typography
-              variant="h4"
-              mt={4}
-              mb={2}
-              fontWeight="bold"
-              gutterBottom
-              align="center"
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mt: 4,
+              }}
             >
-              03 EXPERIENCE
-            </Typography>
-            {experiences.map((exp, index) => (
-              <Box key={index} sx={{ position: "relative", mb: 4 }}>
-                {/* Content Box */}
-                <Box
-                  sx={{
-                    position: "relative",
-                    border: "1px solid #ccc",
-                    borderRadius: 2,
-                    mt: 1,
-                    padding: 3,
-                    backgroundColor: "#f9f9f9",
-                    width: "700px",
-                    mx: "auto",
-                  }}
-                >
-                  {/* Corner L-shapes */}
+              <Typography
+                variant="h4"
+                mt={4}
+                mb={2}
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+              >
+                03 EXPERIENCE
+              </Typography>
+              {experiences.map((exp, index) => (
+                <Box key={index} sx={{ position: "relative", mb: 4 }}>
+                  {/* Content Box */}
                   <Box
                     sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: 20,
-                      height: 20,
-                      borderTop: "2px solid #000",
-                      borderLeft: "2px solid #000",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      width: 20,
-                      height: 20,
-                      borderTop: "2px solid #000",
-                      borderRight: "2px solid #000",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: 20,
-                      height: 20,
-                      borderBottom: "2px solid #000",
-                      borderLeft: "2px solid #000",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      right: 0,
-                      width: 20,
-                      height: 20,
-                      borderBottom: "2px solid #000",
-                      borderRight: "2px solid #000",
-                    }}
-                  />
-
-                  {/* Top Center Date */}
-                  <Typography
-                    variant="subtitle2"
-                    sx={{
-                      position: "absolute",
-                      top: -12,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      backgroundColor: "#f9f9f9",
-                      px: 1,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {exp?.start_date
-                      ? new Date(
-                          exp.start_date.replace(/-/g, "/")
-                        ).toLocaleDateString()
-                      : "Start date"}{" "}
-                    -{" "}
-                    {exp?.end_date
-                      ? new Date(
-                          exp.end_date.replace(/-/g, "/")
-                        ).toLocaleDateString()
-                      : "Present"}
-                  </Typography>
-
-                  {/* Experience Details */}
-                  <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
-                    {exp.company_name}
-                  </Typography>
-                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    {exp.designation}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ whiteSpace: "pre-line", textAlign: "justify" }}
-                  >
-                    {exp.description}
-                  </Typography>
-                </Box>
-
-                {/* Vertical Line */}
-                {index !== experiences.length - 1 && (
-                  <Box
-                    sx={{
-                      width: "2px",
-                      height: "40px",
-                      backgroundColor: "#000",
-                      mx: "auto",
+                      position: "relative",
+                      border: "1px solid #ccc",
+                      borderRadius: 2,
                       mt: 1,
+                      padding: 3,
+                      backgroundColor: "#f9f9f9",
+                      width: "700px",
+                      mx: "auto",
                     }}
-                  />
-                )}
-              </Box>
-            ))}
-          </Box>
+                  >
+                    {/* Corner L-shapes */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 20,
+                        height: 20,
+                        borderTop: "2px solid #000",
+                        borderLeft: "2px solid #000",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        width: 20,
+                        height: 20,
+                        borderTop: "2px solid #000",
+                        borderRight: "2px solid #000",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: 20,
+                        height: 20,
+                        borderBottom: "2px solid #000",
+                        borderLeft: "2px solid #000",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        width: 20,
+                        height: 20,
+                        borderBottom: "2px solid #000",
+                        borderRight: "2px solid #000",
+                      }}
+                    />
+
+                    {/* Top Center Date */}
+                    <Typography
+                      variant="subtitle2"
+                      sx={{
+                        position: "absolute",
+                        top: -12,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        backgroundColor: "#f9f9f9",
+                        px: 1,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {exp?.start_date
+                        ? new Date(
+                            exp.start_date.replace(/-/g, "/")
+                          ).toLocaleDateString()
+                        : "Start date"}{" "}
+                      -{" "}
+                      {exp?.end_date
+                        ? new Date(
+                            exp.end_date.replace(/-/g, "/")
+                          ).toLocaleDateString()
+                        : "Present"}
+                    </Typography>
+
+                    {/* Experience Details */}
+                    <Typography variant="h6" sx={{ fontWeight: "bold", mt: 3 }}>
+                      {exp.company_name}
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                      {exp.designation}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ whiteSpace: "pre-line", textAlign: "justify" }}
+                    >
+                      {exp.description}
+                    </Typography>
+                  </Box>
+
+                  {/* Vertical Line */}
+                  {index !== experiences.length - 1 && (
+                    <Box
+                      sx={{
+                        width: "2px",
+                        height: "40px",
+                        backgroundColor: "#000",
+                        mx: "auto",
+                        mt: 1,
+                      }}
+                    />
+                  )}
+                </Box>
+              ))}
+            </Box>
           </Container>
-          </Box>
+        </Box>
+        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        <Typography
+                variant="h4"
+                mt={4}
+                mb={2}
+                fontWeight="bold"
+                gutterBottom
+                align="center"
+              >
+                03 EXPERIENCE
+              </Typography>
+        <Box
+          sx={{
+            maxWidth: "900px",
+            mx: "auto",
+            mt: 6,
+            p: 4,
+            borderRadius: 3,
+            boxShadow: 4,
+            backgroundColor: "#ffffff",
+          }}
+        >
+          
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={4}
+            alignItems="center"
+          >
+            {/* Profile Image */}
+            <Avatar
+              src={contact.image}
+              alt={contact.name}
+              sx={{ width: 150, height: 150, boxShadow: 2 }}
+            />
+
+            {/* Contact Info */}
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                {contact.name}
+              </Typography>
+
+              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                <EmailIcon fontSize="small" />
+                <Typography variant="body1">{contact.email}</Typography>
+              </Stack>
+
+              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                <PhoneIcon fontSize="small" />
+                <Typography variant="body1">{contact.phone}</Typography>
+              </Stack>
+
+              <Typography
+                variant="body2"
+                sx={{ whiteSpace: "pre-line", mt: 2 }}
+              >
+                {contact.message}
+              </Typography>
+
+              <Divider sx={{ my: 2 }} />
+
+              {/* Social Media Links */}
+              <Box>
+                <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                  Social Media:
+                </Typography>
+                <Stack direction="row" spacing={2}>
+                  {contact?.social_media_links?.map((link) => (
+                    <Link
+                      key={link.id}
+                      href={link.link}
+                      target="_blank"
+                      underline="hover"
+                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                    >
+                      <PublicIcon fontSize="small" /> {link.platform_name}
+                    </Link>
+                  ))}
+                </Stack>
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+        </Box>
         {/* </Box> */}
       </Box>
     </section>

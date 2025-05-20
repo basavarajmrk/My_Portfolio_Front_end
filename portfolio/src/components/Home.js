@@ -34,6 +34,10 @@ import {
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import phot from '../images/17973908.jpg';
+import phot1 from '../images/v996-025.jpg';
+import phot2 from '../images/417.jpg';
+import phot3 from '../images/5494.jpg';
 // React: Needed to write React components
 // useState: manages the state (semiler to variable chenges)
 // useEffect: run code when the component loads
@@ -87,10 +91,19 @@ const Home = () => {
   // This is the JSX (React's HTML-like syntax).
 
   return (
-    <section id="home">
+    <>
+   <section id="home">
       <Box
-        sx={{ backgroundColor: "#e4f2f7", width: "100%", minHeight: "100vh" }}
-      >
+      sx={{
+        backgroundImage: `url(${phot})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        height: '700px', // Set your desired height
+        pb: 8,
+      }}
+    >
         {/* Header */}
         <Container maxWidth="md" sx={{ pt: 8, textAlign: "center" }}>
           <Typography variant="h4" component="h1" gutterBottom>
@@ -136,9 +149,16 @@ const Home = () => {
             )}
           </Box>
         </Container>
-
+        </Box>
+         </section>
+    
+        
+        <section id="professional"> 
         {/* Skills Card */}
-        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'fightcover',
+        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
+   
+
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "800px" }}>
             <Box
               sx={{
@@ -216,7 +236,10 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        </section>
+        < section className="PORTFOLIO">
+        <Box sx={{backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
+        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
             <Box
               sx={{
@@ -293,8 +316,10 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-
-        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        </section>
+        <section className="EXPERIENCE">
+        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
+        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
             <Box
               sx={{
@@ -433,7 +458,11 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-        <Box sx={{ backgroundColor: "#e4f2f7", width: "100%", pb: 8 }}>
+        </section>
+        <section className="CONTACT">
+        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
+        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8, mt: 1, }}>
+          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
         <Typography
                 variant="h4"
                 mt={4}
@@ -442,7 +471,7 @@ const Home = () => {
                 gutterBottom
                 align="center"
               >
-                03 EXPERIENCE
+                04 CONTACT
               </Typography>
         <Box
           sx={{
@@ -515,10 +544,20 @@ const Home = () => {
             </Box>
           </Stack>
         </Box>
+        </Container>
         </Box>
+        </section>
         {/* </Box> */}
+      <Box>
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{ mt: 4, color: "#555" }}
+        >
+          © {new Date().getFullYear()} Basavaraj. All rights reserved.
+        </Typography>
       </Box>
-    </section>
+ </>
   );
 };
 export default Home;

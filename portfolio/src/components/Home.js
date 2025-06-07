@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getHome,
   getProjects,
   getExperience,
   getContact,
 } from "../services/api";
-import LinearProgress from "@mui/material/LinearProgress";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import PublicIcon from "@mui/icons-material/Public";
@@ -23,21 +22,14 @@ import {
   Button,
   Container,
   Avatar,
-  Grid,
   Link,
   Stack,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
   Typography,
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import phot from "../images/17973908.jpg";
-import phot1 from "../images/v996-025.jpg";
 import phot2 from "../images/417.jpg";
-import phot3 from "../images/5494.jpg";
 // React: Needed to write React components
 // useState: manages the state (semiler to variable chenges)
 // useEffect: run code when the component loads

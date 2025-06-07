@@ -1,9 +1,7 @@
-import React from "react";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { Box, Button, Stack } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import { green } from "@mui/material/colors";
 
 const Header = () => {
   const navigate = useNavigate();

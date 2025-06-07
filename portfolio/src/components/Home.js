@@ -34,10 +34,10 @@ import {
   Divider,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import phot from '../images/17973908.jpg';
-import phot1 from '../images/v996-025.jpg';
-import phot2 from '../images/417.jpg';
-import phot3 from '../images/5494.jpg';
+import phot from "../images/17973908.jpg";
+import phot1 from "../images/v996-025.jpg";
+import phot2 from "../images/417.jpg";
+import phot3 from "../images/5494.jpg";
 // React: Needed to write React components
 // useState: manages the state (semiler to variable chenges)
 // useEffect: run code when the component loads
@@ -92,73 +92,83 @@ const Home = () => {
 
   return (
     <>
-   <section id="home">
-      <Box
-      sx={{
-        backgroundImage: `url(${phot})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        width: '100%',
-        height: '700px', // Set your desired height
-        pb: 8,
-      }}
-    >
-        {/* Header */}
-        <Container maxWidth="md" sx={{ pt: 8, textAlign: "center" }}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            {data?.username?.split(" ").map((word, index) => (
-              <div key={index}>{word}</div>
-            ))}
-          </Typography>
-          <Typography variant="h6" color="textSecondary" gutterBottom>
-            {data.designation}
-          </Typography>
-        </Container>
-
-        {/* Description and Resume */}
-        <Container
-          maxWidth="sm"
+      <section id="home">
+        <Box
           sx={{
-            minHeight: "calc(100vh - 300px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            backgroundImage: `url(${phot})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            height: "700px", // Set your desired height
+            pb: 8,
           }}
         >
-          <Box
-            display="flex"
-            flexDirection="column"
-            backgroundColor="#b9ccd6"
-            boxShadow={3}
-            alignItems="center"
-            justifyContent="center"
-            minHeight="30vh"
-            textAlign="center"
-            p={4}
-          >
-            <Typography variant="body1" color="textSecondary">
-              {data.description}
+          {/* Header */}
+          <Container maxWidth="md" sx={{ pt: 8, textAlign: "center" }}>
+            <Typography variant="h4" component="h1" justifyContent={"left"} gutterBottom>
+              {data?.username?.split(" ").map((word, index) => (
+                <div key={index}>{word}</div>
+              ))}
             </Typography>
-            {data?.resume && (
-              <a href={data.resume} download style={{ textDecoration: "none" }}>
-                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                  Download Resume
-                </Button>
-              </a>
-            )}
-          </Box>
-        </Container>
-        </Box>
-         </section>
-    
-        
-        <section id="professional"> 
-        {/* Skills Card */}
-        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'fightcover',
-        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
-   
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              {data?.designation}
+            </Typography>
+          </Container>
 
+          {/* Description and Resume */}
+          <Container
+            maxWidth="sm"
+            sx={{
+              minHeight: "calc(100vh - 300px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              backgroundColor="#b9ccd6"
+              boxShadow={3}
+              alignItems="center"
+              justifyContent="center"
+              minHeight="30vh"
+              textAlign="center"
+              p={4}
+            >
+              
+              <Typography variant="body1"  color="textSecondary">
+                {data?.description}
+              </Typography>
+              {data?.resume && (
+                <a
+                  href={data?.resume}
+                  download
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                    Download Resume
+                  </Button>
+                </a>
+              )}
+            </Box>
+          </Container>
+        </Box>
+      </section>
+
+      <section id="professional">
+        {/* Skills Card */}
+        <Box
+          sx={{
+            backgroundImage: `url(${phot2})`,
+            backgroundSize: "fightcover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            pb: 8,
+          }}
+        >
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "800px" }}>
             <Box
               sx={{
@@ -236,10 +246,18 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-        </section>
-        < section className="PORTFOLIO">
-        <Box sx={{backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
-        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
+      </section>
+      <section className="PORTFOLIO">
+        <Box
+          sx={{
+            backgroundImage: `url(${phot2})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            pb: 8,
+          }}
+        >
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
             <Box
               sx={{
@@ -316,10 +334,18 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-        </section>
-        <section className="EXPERIENCE">
-        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
-        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8 }}>
+      </section>
+      <section className="EXPERIENCE">
+        <Box
+          sx={{
+            backgroundImage: `url(${phot2})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            pb: 8,
+          }}
+        >
           <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
             <Box
               sx={{
@@ -458,96 +484,112 @@ const Home = () => {
             </Box>
           </Container>
         </Box>
-        </section>
-        <section className="CONTACT">
-        <Box sx={{ backgroundImage: `url(${phot2})`,backgroundSize: 'cover',
-        backgroundPosition: 'center',backgroundRepeat: 'no-repeat', width: "100%", pb: 8, mt: 1, }}>
-          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
-        <Typography
-                variant="h4"
-                mt={4}
-                mb={2}
-                fontWeight="bold"
-                gutterBottom
-                align="center"
-              >
-                04 CONTACT
-              </Typography>
+      </section>
+      <section className="CONTACT">
         <Box
           sx={{
-            maxWidth: "900px",
-            mx: "auto",
-            mt: 6,
-            p: 4,
-            borderRadius: 3,
-            boxShadow: 4,
-            backgroundColor: "#ffffff",
+            backgroundImage: `url(${phot2})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            pb: 8,
+            mt: 1,
           }}
         >
-          
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={4}
-            alignItems="center"
-          >
-            {/* Profile Image */}
-            <Avatar
-              src={contact.image}
-              alt={contact.name}
-              sx={{ width: 150, height: 150, boxShadow: 2 }}
-            />
-
-            {/* Contact Info */}
-            <Box sx={{ flex: 1 }}>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                {contact.name}
-              </Typography>
-
-              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
-                <EmailIcon fontSize="small" />
-                <Typography variant="body1">{contact.email}</Typography>
-              </Stack>
-
-              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
-                <PhoneIcon fontSize="small" />
-                <Typography variant="body1">{contact.phone}</Typography>
-              </Stack>
-
-              <Typography
-                variant="body2"
-                sx={{ whiteSpace: "pre-line", mt: 2 }}
+          <Container maxWidth={false} sx={{ pt: 4, maxWidth: "1000px" }}>
+            <Typography
+              variant="h4"
+              mt={4}
+              mb={2}
+              fontWeight="bold"
+              gutterBottom
+              align="center"
+            >
+              04 CONTACT
+            </Typography>
+            <Box
+              sx={{
+                maxWidth: "900px",
+                mx: "auto",
+                mt: 6,
+                p: 4,
+                borderRadius: 3,
+                boxShadow: 4,
+                backgroundColor: "#ffffff",
+              }}
+            >
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={4}
+                alignItems="center"
               >
-                {contact.message}
-              </Typography>
+                {/* Profile Image */}
+                <Avatar
+                  src={contact?.image}
+                  alt={contact?.name}
+                  sx={{ width: 150, height: 150, boxShadow: 2 }}
+                />
 
-              <Divider sx={{ my: 2 }} />
+                {/* Contact Info */}
+                <Box sx={{ flex: 1 }}>
+                  <Typography variant="h5" fontWeight="bold" gutterBottom>
+                    {contact?.name}
+                  </Typography>
 
-              {/* Social Media Links */}
-              <Box>
-                <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-                  Social Media:
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                  {contact?.social_media_links?.map((link) => (
-                    <Link
-                      key={link.id}
-                      href={link.link}
-                      target="_blank"
-                      underline="hover"
-                      sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                  <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                    <EmailIcon fontSize="small" />
+                    <Typography variant="body1">{contact?.email}</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+                    <PhoneIcon fontSize="small" />
+                    <Typography variant="body1">{contact?.phone}</Typography>
+                  </Stack>
+
+                  <Typography
+                    variant="body2"
+                    sx={{ whiteSpace: "pre-line", mt: 2 }}
+                  >
+                    {contact?.message}
+                  </Typography>
+
+                  <Divider sx={{ my: 2 }} />
+
+                  {/* Social Media Links */}
+                  <Box>
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight="bold"
+                      gutterBottom
                     >
-                      <PublicIcon fontSize="small" /> {link.platform_name}
-                    </Link>
-                  ))}
-                </Stack>
-              </Box>
+                      Social Media:
+                    </Typography>
+                    <Stack direction="row" spacing={2}>
+                      {contact?.social_media_links?.map((link) => (
+                        <Link
+                          key={link.id}
+                          href={link.link}
+                          target="_blank"
+                          underline="hover"
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 0.5,
+                          }}
+                        >
+                          <PublicIcon fontSize="small" /> {link.platform_name}
+                        </Link>
+                      ))}
+                    </Stack>
+                  </Box>
+                </Box>
+              </Stack>
             </Box>
-          </Stack>
+          </Container>
         </Box>
-        </Container>
-        </Box>
-        </section>
-        {/* </Box> */}
+      </section>
+      {/* </Box> */}
       <Box>
         <Typography
           variant="body2"
@@ -557,7 +599,7 @@ const Home = () => {
           © {new Date().getFullYear()} Basavaraj. All rights reserved.
         </Typography>
       </Box>
- </>
+    </>
   );
 };
 export default Home;

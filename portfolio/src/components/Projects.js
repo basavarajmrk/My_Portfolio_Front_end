@@ -25,7 +25,7 @@ const Proejct1 = () => {
 
   if (!project) return <p>Loading...</p>;
   return (
-    <Box sx={{ p: 2,backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${project?.image})`, height: "100vh", backgroundSize: "cover", backgroundPosition: "center" }}>
+    <Box sx={{ p: 10,backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${project?.image})`, height: "100vh", backgroundSize: "cover", backgroundPosition: "center" }}>
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
